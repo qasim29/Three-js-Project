@@ -59,9 +59,12 @@ document.addEventListener("keydown", onDocumentKeyDown, false);
 function onDocumentKeyDown(event) {
   var keyCode = event.which;
   if (keyCode == 87) {
+    addAudio();
     keypress = 1;
   }
 }
+
+
 
 const map = new THREE.TextureLoader().load("assets/textures/door.png");
 
@@ -103,6 +106,25 @@ function showText(x, y, z, msg, font) {
   var text = new THREE.Mesh(textsGeometry, textsMaterial);
   text.position.set(x, y, z);
   scene.add(text);
+}
+
+//Fuction For Sound
+function addAudio(){
+	// create an AudioListener and add it to the camera
+const listener = new THREE.AudioListener();
+camera.add( listener );
+
+// create a global audio source
+const sound = new THREE.Audio( listener );
+
+// load a sound and set it as the Audio object's buffer
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load( 'assets/textures/audio/download.mp3', function( buffer ) {
+	sound.setBuffer( buffer );
+	sound.setLoop( true );
+	sound.setVolume( 0.5 );
+    sound.play();
+});
 }
 
 if (window.location.pathname.includes("frame1")) {
